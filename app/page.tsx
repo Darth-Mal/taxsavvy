@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import Calculator from "@/components/Calculator";
+import { calculatePAYETax } from "@/lib/tax";
 
 const page = () => {
   return (
@@ -31,7 +32,8 @@ const page = () => {
         </div>
       </section>
 
-      <div className="h-200 bg-violet-600 scroll-mt-24" id="calculator"></div>
+      <Calculator />
+      <calculatePAYETax />
     </>
   );
 };
