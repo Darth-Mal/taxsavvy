@@ -1,9 +1,17 @@
+export type TaxBandBreakdown = {
+  bandLimit: number;
+  rate: number;
+  taxableAmount: number;
+  tax: number;
+};
+
 export function calculatePAYETax(grossIncome: number) {
-  // 1. CRA
   const cra = Math.max(200_000, grossIncome * 0.01) + grossIncome * 0.2;
 
-  // 2. Taxable income
   let taxableIncome = grossIncome - cra;
+
+  // 🔐 GUARANTEE breakdown exists
+  const breakdown: TaxBandBreakdown[] = [];
 
   if (taxableIncome <= 0) {
     return {
@@ -11,10 +19,10 @@ export function calculatePAYETax(grossIncome: number) {
       monthlyTax: 0,
       taxableIncome: 0,
       cra,
+      breakdown, // ✅ always present
     };
   }
 
-  // 3. Tax bands
   const bands = [
     { limit: 300_000, rate: 0.07 },
     { limit: 300_000, rate: 0.11 },
@@ -25,20 +33,30 @@ export function calculatePAYETax(grossIncome: number) {
   ];
 
   let remaining = taxableIncome;
-  let tax = 0;
+  let totalTax = 0;
 
   for (const band of bands) {
     if (remaining <= 0) break;
 
-    const taxableAtThisBand = Math.min(remaining, band.limit);
-    tax += taxableAtThisBand * band.rate;
-    remaining -= taxableAtThisBand;
+    const taxableAmount = Math.min(remaining, band.limit);
+    const tax = taxableAmount * band.rate;
+
+    breakdown.push({
+      bandLimit: band.limit,
+      rate: band.rate,
+      taxableAmount,
+      tax,
+    });
+
+    totalTax += tax;
+    remaining -= taxableAmount;
   }
 
   return {
-    annualTax: tax,
-    monthlyTax: tax / 12,
+    annualTax: totalTax,
+    monthlyTax: totalTax / 12,
     taxableIncome,
     cra,
+    breakdown, // ✅ always present
   };
 }

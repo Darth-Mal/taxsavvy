@@ -1,7 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import Calculator from "@/components/Calculator";
-import { calculatePAYETax } from "@/lib/tax";
-
+import TaxCalculator from "@/components/Calculator";
 const page = () => {
   return (
     <>
@@ -32,8 +30,7 @@ const page = () => {
         </div>
       </section>
 
-      <Calculator />
-      <calculatePAYETax />
+      <TaxCalculator />
     </>
   );
 };
