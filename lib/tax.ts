@@ -10,7 +10,6 @@ export function calculatePAYETax(grossIncome: number) {
 
   let taxableIncome = grossIncome - cra;
 
-  // 🔐 GUARANTEE breakdown exists
   const breakdown: TaxBandBreakdown[] = [];
 
   if (taxableIncome <= 0) {
@@ -19,7 +18,7 @@ export function calculatePAYETax(grossIncome: number) {
       monthlyTax: 0,
       taxableIncome: 0,
       cra,
-      breakdown, // ✅ always present
+      breakdown,
     };
   }
 
@@ -57,6 +56,6 @@ export function calculatePAYETax(grossIncome: number) {
     monthlyTax: totalTax / 12,
     taxableIncome,
     cra,
-    breakdown, // ✅ always present
+    breakdown,
   };
 }
