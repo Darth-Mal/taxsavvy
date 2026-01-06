@@ -3,14 +3,14 @@ import TaxCalculator from "@/components/Calculator";
 const page = () => {
   return (
     <>
-      <section className="flex flex-col justify-center items-center gap-1.5 h-screen">
+      <section className="flex flex-col justify-center items-center gap-1.5 min-h-screen">
         <div className="flex justify-center items-center flex-col gap-4">
-          <h1 className="max-w-4xl mt-50 sm:mt-0">
+          <h1 className="max-w-4xl mt-30 sm:mt-0">
             Your Clear, Simple and Accurate <br /> One‑Stop Platform for <br />{" "}
             Nigeria’s New Tax Reforms.
           </h1>
 
-          <p className="max-w-2xl text-center">
+          <p className="max-w-md sm:max-w-2xl text-center ">
             Taxsavvy helps everyday Nigerians understand the new tax reforms,
             calculate what they owe, know their rights and obligations, and stay
             compliant with Nigerian tax laws — without jargon, fear, or
